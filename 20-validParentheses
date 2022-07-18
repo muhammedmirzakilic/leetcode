@@ -1,0 +1,30 @@
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var isValid = function (s) {
+    const openParantheses = {
+        "(": ")",
+        "[": "]",
+        "{": "}",
+    };
+    let stack = "";
+
+    for (const character of s) {
+        if (openParantheses[character])
+            stack += character;
+        else if (openParantheses[stack[stack.length - 1]] !== character)
+            return false;
+        else
+            stack = stack.substring(0, stack.length - 1);
+    }
+    return stack.length === 0;
+};
+
+console.log(isValid("()"), true);
+console.log(isValid("()()"), true);
+console.log(isValid("([])"), true);
+console.log(isValid("([{}])"), true);
+console.log(isValid("([]{})"), true);
+console.log(isValid("([]{)"), false);
+console.log(isValid("([]{})("), false);
